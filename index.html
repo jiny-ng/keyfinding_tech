@@ -111,7 +111,7 @@
   .grp{font-size:11.5px;font-weight:800;color:var(--gold-deep);margin:12px 0 2px;padding-bottom:3px;border-bottom:1px solid var(--line);}
   .grp.shared{color:var(--white);background:var(--gold);border:none;display:inline-block;padding:2px 9px;border-radius:999px;}
   .fld-wrap{margin-top:8px;}
-  .fld-wrap label{display:block;font-size:11.5px;font-weight:700;color:var(--ink-soft);margin-bottom:3px;}
+  .fld-wrap label{display:block;font-size:14.5px;font-weight:800;color:var(--ink);margin-bottom:5px;margin-top:4px;}
   .fld{width:100%;font-family:inherit;font-size:13px;line-height:1.5;color:var(--ink);background:var(--white);border:1px solid var(--sand-2);border-radius:8px;padding:7px 9px;resize:vertical;}
   .fld:focus{outline:2px solid rgba(148,97,72,.38);border-color:var(--gold);}
   .fld.num{width:90px;resize:none;}
@@ -119,6 +119,16 @@
   .rowitem{display:flex;gap:6px;align-items:flex-start;margin-top:6px;}
   .rowitem .rn{flex:0 0 22px;height:32px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--gold-deep);}
   .rowitem .fld{margin-top:0;}
+  .mrow{align-items:center;justify-content:flex-start;text-align:left;gap:8px;min-height:34px;box-sizing:border-box;padding:4px 10px;border-radius:8px;border:1px solid var(--line);cursor:pointer;font-size:13.5px;line-height:1.5;}
+  .fld-wrap label.mrow{display:flex;font-size:13.5px;font-weight:400;color:var(--ink);margin:6px 0 0;}
+  .fld-wrap label.mrow.off{color:#A28C7C;}
+  .mrow .mchk{flex:0 0 auto;width:17px;height:17px;accent-color:var(--gold);cursor:pointer;margin:0;}
+  .mrow.on{background:var(--sand);color:var(--ink);border-color:var(--sand-2);}
+  .mrow.off{background:transparent;color:#A28C7C;}
+  .prow{align-items:stretch;gap:8px;}
+  .prow .ptxt{flex:1 1 0;min-width:0;padding:4px 10px;min-height:34px;box-sizing:border-box;border-radius:8px;background:var(--sand);border:1px solid var(--sand-2);font-size:13.5px;line-height:1.5;display:flex;align-items:center;}
+  .prow .fld{flex:1 1 0;min-width:0;}
+  .mempty{margin-top:6px;padding:9px 10px;border:1px dashed var(--line);border-radius:8px;font-size:13px;color:#A28C7C;}
   .issuerow{display:flex;gap:8px;align-items:flex-start;}
   .issuerow .fld{flex:1 1 0;min-width:0;}
   .resetcard{flex:0 0 auto;height:34px;padding:0 14px;border:1px solid var(--sand-2);background:var(--white);color:var(--ink-soft);border-radius:8px;cursor:pointer;font-size:12.5px;font-weight:700;font-family:inherit;}
@@ -178,13 +188,12 @@
     <h2>이렇게 사용하세요</h2>
     <ol class="howto" style="margin-top:0">
       <li>입력 칸에 직접 쓰거나 붙여넣습니다. 입력한 내용이 아래 프롬프트에 <b>자동으로 채워집니다.</b></li>
-      <li><b>복사</b> 버튼을 눌러 AI에 붙여넣습니다. 카드마다 규칙이 모두 들어 있어 <b>새 대화창에서 바로</b> 쓸 수 있습니다. 빈 칸이 남으면 AI가 답하지 않고 먼저 작성을 요청합니다.</li>
+      <li><b>복사</b> 버튼을 눌러 AI에 붙여넣습니다. 카드마다 규칙이 모두 들어 있어 <b>새 대화창에서 바로</b> 쓸 수 있습니다.</li>
       <li>AI 답변은 <b>참고용</b>입니다. 채택·수정·폐기는 내가 정합니다.</li>
     </ol>
     <div class="tools">
       <button class="reset" id="resetAll" type="button">입력 내용 모두 지우기</button>
     </div>
-    <div class="warn"><b>입력 시 주의</b> 개인 실명·사번, 특정 개인이 식별되는 주관식 원문은 입력하지 마세요. 숫자와 요약 중심으로 적고, 사내에서 허용된 AI 도구를 사용하세요. 입력 내용은 <b>이 기기의 브라우저에만 임시 저장</b>되며 서버로 전송되지 않습니다. 공용 PC에서는 사용 후 "입력 내용 모두 지우기"를 눌러주세요.</div>
   </div>
 </section>
 
@@ -204,7 +213,7 @@ const COMMON = `■ 답변 규칙
 
 const PRIORITY_COMMON = `■ 답변 규칙
 - 너는 나의 생각을 점검하고 보완해주는 레드팀 파트너야. 칭찬이나 동의보다 근거 점검과 보완을 우선해줘.
-- "내 생각"에 해당하는 부분이 비어 있거나, 대괄호로 된 빈 칸이 그대로 남아 있으면, 분석하지 말고 "먼저 직접 작성해 주세요"라고만 답해줘.
+- "내 생각"에 해당하는 부분이 비어 있거나, 대괄호로 된 빈 칸이 그대로 남아 있으면, 그 부분은 분석하지 말고 답변 맨 끝에 "### 추천 아이디어" 항목을 따로 만들어 네가 직접 제안해줘. 이때 제안은 내가 쓴 내용이 아니라 참고용이라고 표시하고, 내가 적은 부분은 평소대로 점검해줘.
 - 내가 입력한 내용 안에서만 근거를 삼아줘. 없는 수치나 사실은 만들지 말고, 모르면 "확인 필요"라고 써줘.
 - 내가 쓴 내용은 고치거나 대체하지 말고, 추가·보완·질문의 형태로만 답해줘.
 - 한국어로 답해줘. 이모지는 쓰지 말고, 점수 정리는 표(표가 어려우면 줄 맞춘 목록)를 사용해줘.`;
@@ -233,9 +242,9 @@ const SHARED = {
 
 /* 개수 제한 없이 행을 추가할 수 있는 목록 입력. 본문에서는 {*키} 로 표기 */
 const LISTS = {
-  worse:   { label: "1) 우리의 이슈를 더 나빠지게 만들려면? (행 추가 가능)", ph: "더 나빠지게 하는 방법", hint: "예) 문제가 생겨도 서로 말하지 않는다", add: "+ 행 추가" },
-  doing:   { label: "2) 이 중에 우리가 이미 하고 있는 것은? (행 추가 가능)", ph: "이미 하고 있는 것", hint: "위 1)에서 우리가 이미 하고 있는 것을 골라 적습니다", add: "+ 행 추가" },
-  prevent: { label: "3) 이렇게 되지 않기 위해 우리는 무엇을 해야 할까? (행 추가 가능)", ph: "해야 할 것", hint: "더 나빠지지 않기 위해 할 수 있는 행동을 적습니다", add: "+ 행 추가" },
+  worse:   { label: "1) 망치기: 우리의 이슈를 더 나빠지게 만들려면?", ph: "더 나빠지게 하는 방법", hint: "예) 문제가 생겨도 서로 말하지 않는다", add: "+ 행 추가" },
+  doing:   { label: "2) 찾기: 이 중에 우리가 이미 하고 있는 것은? (1)에 적은 내용 중 해당하는 것에 체크)", ph: "이미 하고 있는 것", hint: "위 1)을 먼저 적으면 여기에 자동으로 나타납니다", mirror: "worse" },
+  prevent: { label: "3) 뒤집기: 이렇게 되지 않기 위해 우리는 무엇을 해야 할까? (2)에서 체크한 내용이 자동으로 나타납니다)", ph: "뒤집어보기", hint: "위 2)에서 체크한 항목이 여기에 자동으로 나타납니다", mirror: "doing", ans: "더 나빠지지 않기 위해 할 수 있는 행동을 적습니다" },
   finals: { label: "최종 아이디어 후보 (한 줄에 하나씩 · Enter로 구분 · 개수 제한 없음)", ph: "최종 아이디어 후보 목록", hint: "아이디어 이름 - 한 줄 설명 (누가, 무엇을)\n아이디어 이름 - 한 줄 설명 (누가, 무엇을)\n…", text: true, rows: 8 },
   ideas: { label: "아이디어 후보 (한 줄에 하나씩 · Enter로 구분 · 개수 제한 없음)", ph: "아이디어 후보 목록", hint: "아이디어 이름 - 한 줄 설명 (누가, 무엇을)\n아이디어 이름 - 한 줄 설명 (누가, 무엇을)\n…", text: true, rows: 8 }
 };
@@ -291,8 +300,8 @@ const DATA = [
 ■ 요청
 1. 기준 확인: 위 이슈를 한 줄로 다시 써서 네가 이해한 기준을 먼저 보여줘.
 2. 1) 점검: 내가 쓴 항목 중 이슈를 실제로 더 나빠지게 하는 것과 이슈와 연결이 약한 것을 번호로 구분해줘. 내 목록에 빠진 "더 나빠지게 하는 방법"이 있으면 5개 이내로 덧붙여줘. 덧붙인 것은 내 항목과 구분해서 표시해줘.
-3. 2) 점검: 내가 "이미 하고 있다"고 쓴 항목이 1)의 몇 번과 연결되는지 짝지어줘. 1)에는 있는데 2)에 없는 항목 중에, 우리가 이미 하고 있을 수도 있는 것을 질문 형태로 던져줘. (답은 만들지 마)
-4. 3) 점검: 3)의 각 항목이 1)의 몇 번을 막아주는지 짝지어줘. 막아주는 항목이 없는 1)의 번호를 알려줘. 누가·언제·무엇을 하는지가 모호한 3)의 항목은 이유와 함께 알려주고, 구체화하기 위해 내가 답해야 할 질문을 1개씩 던져줘.
+3. 2) 점검: 2)는 내가 1) 중에서 "우리가 이미 하고 있다"고 체크한 항목이야. 그 항목들이 1)의 몇 번인지 알려줘. 체크하지 않은 1)의 항목 중에, 우리가 이미 하고 있을 수도 있는 것을 질문 형태로 던져줘. (답은 만들지 마)
+4. 3) 점검: 3)은 2)의 각 항목에 내가 적은 "뒤집어보기"야. 각 뒤집어보기가 그 항목을 실제로 막아주는지 점검해줘. "(미입력)"인 항목은 비어 있다고 알려줘. 누가·언제·무엇을 하는지가 모호한 뒤집어보기는 이유와 함께 알려주고, 구체화하기 위해 내가 답해야 할 질문을 1개씩 던져줘.
 5. 한눈에 보는 정리: 아래 열로 표를 만들어줘. 1)의 항목마다 한 줄씩 써줘.
    번호 | 더 나빠지게 하는 방법 | 우리가 이미 하고 있나 (예 / 아니오 / 확인 필요) | 막기 위해 적은 행동 | 비어 있는 부분
 6. 참고 제안: 막아주는 행동이 비어 있는 1)의 항목에 대해, 새 행동 아이디어를 항목마다 최대 1개씩만 "참고 제안"으로 따로 써줘. 내가 쓴 내용을 고치거나 대체하지 마.`
@@ -343,7 +352,7 @@ function parseCard(text, pid){
       if(m[2] && m[1]){
         if(!LISTS[m[2]]) throw new Error('unknown list key: ' + m[2]);
         const key = pid + ':list:' + m[2];
-        fields.push({ key, list: true, label: LISTS[m[2]].label, hint: LISTS[m[2]].hint, add: LISTS[m[2]].add, text: LISTS[m[2]].text, rows: LISTS[m[2]].rows, group: '' });
+        fields.push({ key, list: true, label: LISTS[m[2]].label, hint: LISTS[m[2]].hint, add: LISTS[m[2]].add, text: LISTS[m[2]].text, rows: LISTS[m[2]].rows, mirror: LISTS[m[2]].mirror, group: '' });
         segs.push({ t: 'tok', key, list: true, ph: LISTS[m[2]].ph });
       }else if(m[2]){
         if(!SHARED[m[2]]) throw new Error('unknown shared key: ' + m[2]);
@@ -390,7 +399,26 @@ function getRows(k){
   while(a.length < MIN_ROWS) a.push('');
   return a;
 }
+function rerenderMirrors(){
+  document.querySelectorAll('.fld-wrap[data-list]').forEach(w => { if(mirrorKey(w.dataset.list)) renderRows(w.dataset.list); });
+}
+function mirrorKey(k){
+  const nm = k.split(':list:')[1], mir = LISTS[nm] && LISTS[nm].mirror;
+  return mir ? k.split(':list:')[0] + ':list:' + mir : null;
+}
 function listVals(k){
+  const mk = mirrorKey(k);
+  if(mk && LISTS[k.split(':list:')[1]].ans){
+    const pid = k.split(':list:')[0];
+    const worse = getRows(pid + ':list:worse');
+    const chk = Array.isArray(state[pid + ':list:doing|chk']) ? state[pid + ':list:doing|chk'] : [];
+    const ans = Array.isArray(state[k]) ? state[k] : [];
+    return worse.map((x, i) => (chk[i] && (x || '').trim()) ? (x.trim() + ' → 뒤집어보기: ' + ((ans[i] || '').trim() || '(미입력)')) : '').filter(Boolean);
+  }
+  if(mk){
+    const chk = Array.isArray(state[k + '|chk']) ? state[k + '|chk'] : [];
+    return getRows(mk).map((x, i) => chk[i] ? (x || '').trim() : '').filter(Boolean);
+  }
   if(typeof state[k] === 'string') return state[k].split('\n').map(x => x.trim().replace(/^\d+[.)]\s*/, '')).filter(Boolean);
   return getRows(k).map(x => (x || '').trim()).filter(Boolean);
 }
@@ -399,6 +427,26 @@ function renderRows(k){
   if(!wrap) return;
   const box = wrap.querySelector('.rows');
   const hint = LISTS[k.split(':list:')[1]].hint;
+  const mk = mirrorKey(k);
+  if(mk && LISTS[k.split(':list:')[1]].ans){
+    const pid = k.split(':list:')[0];
+    const worse = getRows(pid + ':list:worse');
+    const chk = Array.isArray(state[pid + ':list:doing|chk']) ? state[pid + ':list:doing|chk'] : [];
+    const ans = Array.isArray(state[k]) ? state[k] : [];
+    const ph = LISTS[k.split(':list:')[1]].ans;
+    const ph2 = '뒤집어보기: ' + ph;
+    const rh = worse.map((x, i) => (chk[i] && (x || '').trim()) ? `<div class="rowitem prow"><div class="ptxt">${esc(x.trim())}</div><textarea class="fld" rows="1" data-k="${esc(k)}" data-i="${i}" placeholder="${esc(ph2)}"></textarea></div>` : '').join('');
+    box.innerHTML = rh || `<div class="mempty">${esc(hint)}</div>`;
+    box.querySelectorAll('textarea').forEach(ta => { ta.value = ans[Number(ta.dataset.i)] || ''; });
+    return;
+  }
+  if(mk){
+    const chk = Array.isArray(state[k + '|chk']) ? state[k + '|chk'] : [];
+    const src = getRows(mk);
+    const mh = src.map((x, i) => (x || '').trim() ? `<label class="rowitem mrow ${chk[i] ? 'on' : 'off'}"><span class="mtxt">${esc(x.trim())}</span><input type="checkbox" class="mchk" data-k="${esc(k)}" data-i="${i}"${chk[i] ? ' checked' : ''}></label>` : '').join('');
+    box.innerHTML = mh || `<div class="mempty">${esc(hint)}</div>`;
+    return;
+  }
   const rows = getRows(k);
   box.innerHTML = rows.map((_, i) => `<div class="rowitem"><span class="rn">${i + 1}</span><textarea class="fld" rows="1" data-k="${esc(k)}" data-i="${i}" placeholder="${esc(hint)}"></textarea><button type="button" class="delrow" data-k="${esc(k)}" data-i="${i}" aria-label="행 삭제">×</button></div>`).join('');
   box.querySelectorAll('textarea').forEach((ta, i) => { ta.value = rows[i]; });
@@ -431,7 +479,7 @@ function fieldHtml(f, shared, card){
     return `<div class="fld-wrap"><label>${label}</label><textarea class="fld" rows="${f.rows || 6}" data-k="${k}" placeholder="${esc(f.hint || '')}"></textarea></div>`;
   }
   if(f.list){
-    return `<div class="fld-wrap" data-list="${k}"><label>${label}</label><div class="rows"></div><button type="button" class="addrow" data-k="${k}">${esc(f.add || '+ 추가')}</button></div>`;
+    return `<div class="fld-wrap" data-list="${k}"><label>${label}</label><div class="rows"></div>${f.mirror ? '' : `<button type="button" class="addrow" data-k="${k}">${esc(f.add || '+ 추가')}</button>`}</div>`;
   }
   let input;
   if(f.numeric){
@@ -575,6 +623,7 @@ document.addEventListener('input', (e) => {
   const k = inp.dataset.k;
   if(inp.dataset.i !== undefined){
     const a = getRows(k); a[Number(inp.dataset.i)] = inp.value; state[k] = a;
+    if(!mirrorKey(k)) rerenderMirrors();
   }else{
     state[k] = inp.value;
   }
@@ -583,6 +632,19 @@ document.addEventListener('input', (e) => {
   }
   saveState();
   refreshAll();
+});
+
+document.addEventListener('change', (e) => {
+  const cb = e.target.closest('.mchk');
+  if(!cb) return;
+  const k = cb.dataset.k;
+  const a = Array.isArray(state[k + '|chk']) ? state[k + '|chk'].slice() : [];
+  a[Number(cb.dataset.i)] = cb.checked; state[k + '|chk'] = a;
+  const row = cb.closest('.mrow');
+  row.classList.toggle('on', cb.checked);
+  row.classList.toggle('off', !cb.checked);
+  rerenderMirrors();
+  saveState(); refreshAll();
 });
 
 document.addEventListener('click', (e) => {
@@ -611,7 +673,15 @@ document.addEventListener('click', (e) => {
   if(del){
     const k = del.dataset.k;
     const a = getRows(k); a.splice(Number(del.dataset.i), 1); state[k] = a;
-    renderRows(k); saveState(); refreshAll();
+    const di = Number(del.dataset.i);
+    document.querySelectorAll('.fld-wrap[data-list]').forEach(w => {
+      const wk = w.dataset.list;
+      if(mirrorKey(wk) && wk.split(':list:')[0] === k.split(':list:')[0] && k.endsWith(':list:worse')){
+        if(Array.isArray(state[wk + '|chk'])) state[wk + '|chk'].splice(di, 1);
+        if(LISTS[wk.split(':list:')[1]].ans && Array.isArray(state[wk])) state[wk].splice(di, 1);
+      }
+    });
+    renderRows(k); rerenderMirrors(); saveState(); refreshAll();
     return;
   }
 
@@ -619,7 +689,7 @@ document.addEventListener('click', (e) => {
   if(rst){
     if(!confirm('이슈와 입력한 내용을 모두 지우고 새 이슈로 다시 시작할까요?')) return;
     const card = cards.find(c => c.pid === rst.dataset.card);
-    card.parsed.fields.forEach(f => { delete state[f.key]; });
+    card.parsed.fields.forEach(f => { delete state[f.key]; delete state[f.key + '|chk']; });
     card.parsed.sharedKeys.forEach(k => { delete state[k]; });
     rst.closest('.pcard').querySelectorAll('.fld').forEach(inp => { if(!inp.dataset.i) inp.value = ''; });
     renderAllLists();
@@ -630,7 +700,7 @@ document.addEventListener('click', (e) => {
   const clr = e.target.closest('.clear-card');
   if(clr){
     const card = cards.find(c => c.pid === clr.dataset.card);
-    card.parsed.fields.forEach(f => { delete state[f.key]; });
+    card.parsed.fields.forEach(f => { delete state[f.key]; delete state[f.key + '|chk']; });
     clr.closest('.pcard').querySelectorAll('.fld').forEach(inp => {
       if(!SHARED[inp.dataset.k]) inp.value = '';
     });
